@@ -20,11 +20,14 @@ Route::get('/home', function () {
 });
 
 Route::get('/blog', function () {
-    return 'Blog Page';
+    return view('blog');
 });
 
-Route::get('/blogpost', function () {
-    return 'Blog Post Page';
+Route::get('/blogpost/{blogId}', function ($blogId) {
+    $title = request()->query('title', 'Default Title');
+    $content = request()->query('content', 'Default Content');
+    
+    return view('blogpost', compact('blogId', 'title', 'content'));
 });
 
 Route::get('/category', function () {
