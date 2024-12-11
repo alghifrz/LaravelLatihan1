@@ -20,7 +20,12 @@ Route::get('/home', function () {
 });
 
 Route::get('/blog', function () {
-    return view('blog');
+    $blogId = request()->query('id', '1');
+    return view('blog', compact('blogId'));
+});
+
+Route::get('/blog/{blogId}', function ($blogId) {
+    return view('blog', compact('blogId'));
 });
 
 Route::get('/blogpost/{blogId}', function ($blogId) {
@@ -30,12 +35,12 @@ Route::get('/blogpost/{blogId}', function ($blogId) {
     return view('blogpost', compact('blogId', 'title', 'content'));
 });
 
-Route::get('/category', function () {
-    return 'Category Page';
+Route::get('/category/{categoryId}', function ($categoryId) {
+    return 'Category Page : '.$categoryId;
 });
 
-Route::get('/author', function () {
-    return 'Author Page';
+Route::get('/author/{authorId}', function ($authorId) {
+    return 'Author Page : '.$authorId;
 });
 
 Route::get('/privacypolicy', function () {
