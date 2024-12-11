@@ -1,19 +1,20 @@
 <?php
 
+use App\Http\Middleware\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('home');
-});
+})->middleware(Auth::class);
 
+Route::get('/signin', [UserController::class, 'showLoginForm']);
+// Route::post('/signin', [UserController::class, 'login']);
 
-Route::get('/signin', function () {
-   return view('signin'); 
-});
+Route::get('/signup', [UserController::class, 'showRegisterForm']);
+Route::post('/signup', [UserController::class, 'register']);
 
-Route::get('/signup', function () {
-    return view('signup');
-});
+Route::get('/profile', [UserController::class, 'profile'])->middleware('auth');
 
 Route::get('/home', function () {
     return 'Home Page';
@@ -46,3 +47,20 @@ Route::get('/author/{authorId}', function ($authorId) {
 Route::get('/privacypolicy', function () {
     return 'Privacy Policy Page';
 });
+
+
+Route::get('/admin', function () {
+    return 'Admin Page';
+});
+
+Route::post('/profile', function () {
+    return 'Welcome to your profile!';
+});
+
+Route::get('/profile', function () {
+    return 'Welcome to your profile!';
+})->middleware('auth');
+
+Route::post('/signin', [UserController::class, 'login']);
+
+
